@@ -1,0 +1,2 @@
+This is a sample file to test the filesystem MCP server.
+It can be accessed by Claude to demonstrate file reading capabilities.
