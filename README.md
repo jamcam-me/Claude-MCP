@@ -1,105 +1,175 @@
-# Claude MCP Servers
+# Claude-MCP
 
-This repository contains Model Context Protocol (MCP) servers for Claude Desktop. These servers extend Claude's capabilities by providing access to external tools and resources.
+A collection of Model Context Protocol (MCP) servers for use with Claude Desktop and other MCP-compatible applications.
 
-## Available MCP Servers
+## Overview
 
-### 1. GitHub Server
+This repository contains multiple MCP servers that provide various capabilities:
 
-The GitHub server provides tools for interacting with the GitHub API.
+- **Filesystem Server**: Access and manipulate files on the local filesystem
+- **GitHub Server**: Interact with GitHub repositories
+- **Brave Search Server**: Perform web searches using Brave Search
+- **Fetch Server**: Fetch data from URLs and APIs
+- **Mindmap Server**: Create and manipulate mindmaps
+- **Market Analysis Server**: Analyze market data and generate visualizations
+- **Financial Modeling Server**: Generate financial projections and analyses
+- **Technical Documentation Server**: Generate technical documentation and diagrams
 
-**Tools:**
-- `fetch_repositories`: Fetch GitHub repositories for a user
-- `fetch_issues`: Fetch issues for a GitHub repository
-- `fetch_pull_requests`: Fetch pull requests for a GitHub repository
+## Installation
 
-**Environment Variables:**
-- `GITHUB_API_TOKEN`: GitHub API token for authentication (optional)
+1. Clone the repository:
+   ```
+   git clone https://github.com/jamcam-me/Claude-MCP.git
+   cd Claude-MCP
+   ```
 
-### 2. Brave Search Server
-
-The Brave Search server provides tools for searching the web using the Brave Search API.
-
-**Tools:**
-- `search`: Search the web using Brave Search
-- `get_suggestions`: Get search suggestions for a query
-
-**Environment Variables:**
-- `BRAVE_SEARCH_API_KEY`: Brave Search API key for authentication
-
-### 3. Filesystem Server
-
-The Filesystem server provides tools for interacting with the local filesystem.
-
-**Tools:**
-- `read_file`: Read a file from the filesystem
-- `write_file`: Write data to a file in the filesystem
-- `list_files`: List files in a directory
-
-**Environment Variables:**
-- `FILESYSTEM_BASE_DIRS`: Comma-separated list of base directories that the server is allowed to access
-
-## Setup
-
-1. Install dependencies:
+2. Install dependencies:
    ```
    npm install
    ```
 
-2. Configure environment variables in the Claude Desktop configuration file:
-   ```
-   c:/Users/JamesCameron/AppData/Roaming/Claude/claude_desktop_config.json
-   ```
+## Usage
 
-3. Run the servers:
-   ```
-   npm run start:github
-   npm run start:brave-search
-   npm run start:filesystem
-   ```
+### Starting All Servers
 
-## Claude Desktop Configuration
+To start all MCP servers:
 
-The Claude Desktop configuration file should contain the following MCP server settings:
+```
+npm start
+```
+
+### Starting Individual Servers
+
+To start individual servers:
+
+- Filesystem Server: `npm run start:filesystem`
+- GitHub Server: `npm run start:github`
+- Brave Search Server: `npm run start:brave-search`
+- Fetch Server: `npm run start:fetch`
+- Mindmap Server: `npm run start:mindmap`
+- Market Analysis Server: `npm run start:market-analysis`
+- Financial Modeling Server: `npm run start:financial-modeling`
+- Technical Documentation Server: `npm run start:technical-doc`
+
+## Server Capabilities
+
+### Filesystem Server
+
+Provides access to the local filesystem with the following tools:
+- `read_file`: Read a file from the filesystem
+- `write_file`: Write data to a file in the filesystem
+- `list_files`: List files in a directory
+
+### GitHub Server
+
+Provides access to GitHub repositories with the following tools:
+- `search_repositories`: Search for GitHub repositories
+- `get_repository`: Get information about a GitHub repository
+- `list_issues`: List issues in a GitHub repository
+
+### Brave Search Server
+
+Provides web search capabilities using Brave Search with the following tools:
+- `search`: Perform a web search
+- `search_news`: Search for news articles
+- `search_images`: Search for images
+
+### Fetch Server
+
+Provides tools for fetching data from URLs and APIs:
+- `fetch`: Fetch data from a URL
+- `fetch_json`: Fetch JSON data from a URL and parse it
+- `fetch_html`: Fetch HTML content from a URL
+
+### Mindmap Server
+
+Provides tools for creating and manipulating mindmaps:
+- `create_mindmap`: Create a new mindmap from a template or from scratch
+- `update_mindmap`: Update an existing mindmap by adding, modifying, or removing nodes
+- `export_mindmap`: Export a mindmap to various formats (JSON, Markdown, Mermaid)
+
+### Market Analysis Server
+
+Provides tools for market analysis and visualization:
+- `partner_ecosystem_analysis`: Analyze partner ecosystem and generate visualization data
+- `competitive_analysis`: Analyze competitive landscape and generate visualization data
+- `regional_market_analysis`: Analyze regional markets and generate visualization data
+
+### Financial Modeling Server
+
+Provides tools for financial modeling and analysis:
+- `revenue_projection`: Generate revenue projections based on market share, pricing tiers, and growth rates
+- `scenario_analysis`: Analyze bull, base, and bear case scenarios for financial projections
+- `sensitivity_analysis`: Analyze the sensitivity of financial projections to changes in key parameters
+
+### Technical Documentation Server
+
+Provides tools for generating technical documentation and diagrams:
+- `generate_architecture_diagram`: Generate architecture diagrams based on system components
+- `generate_sequence_diagram`: Generate sequence diagrams for system interactions
+- `generate_gantt_chart`: Generate Gantt charts for project timelines
+
+## Configuration
+
+### Claude Desktop Configuration
+
+To configure Claude Desktop to use these MCP servers, add the following to your `claude_desktop_config.json` file:
 
 ```json
 {
   "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/filesystem-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
     "github": {
       "command": "node",
-      "args": ["D:\\Dev-New2005\\Claude-MCP\\src\\mcp-servers\\github-server.js"],
-      "env": {
-        "GITHUB_API_TOKEN": "your-github-token"
-      },
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/github-server.js"],
       "disabled": false,
-      "autoApprove": []
+      "alwaysAllow": []
     },
     "brave-search": {
       "command": "node",
-      "args": ["D:\\Dev-New2005\\Claude-MCP\\src\\mcp-servers\\brave-search-server.js"],
-      "env": {
-        "BRAVE_SEARCH_API_KEY": "your-brave-search-api-key"
-      },
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/brave-search-server.js"],
       "disabled": false,
-      "autoApprove": []
+      "alwaysAllow": []
     },
-    "filesystem": {
+    "fetch": {
       "command": "node",
-      "args": ["D:\\Dev-New2005\\Claude-MCP\\src\\mcp-servers\\filesystem-server.js"],
-      "env": {
-        "FILESYSTEM_BASE_DIRS": "D:\\Dev-New2005\\Claude-MCP,D:\\Dev-New2005\\Claude-MCP\\data"
-      },
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/fetch-server.js"],
       "disabled": false,
-      "autoApprove": []
+      "alwaysAllow": []
+    },
+    "mindmap": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/mindmap-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "market-analysis": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/market-analysis-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "financial-modeling": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/financial-modeling-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "technical-documentation": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/technical-documentation-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
     }
   }
 }
 ```
 
-## Usage
+## License
 
-Once the MCP servers are configured and running, Claude will have access to the tools provided by these servers. You can ask Claude to use these tools to perform various tasks, such as:
-
-- "Search for information about climate change using Brave Search"
-- "Fetch my GitHub repositories"
-- "Read the sample.txt file from the data directory"
+ISC

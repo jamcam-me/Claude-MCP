@@ -1,5 +1,5 @@
 {
-  "name": "claude-scp",
+  "name": "claude-mcp",
   "version": "1.0.0",
   "type": "module",
   "main": "src/index.js",
@@ -8,6 +8,11 @@
     "start:github": "node src/mcp-servers/github-server.js",
     "start:brave-search": "node src/mcp-servers/brave-search-server.js",
     "start:filesystem": "node src/mcp-servers/filesystem-server.js",
+    "start:fetch": "node src/mcp-servers/fetch-server.js",
+    "start:mindmap": "node src/mcp-servers/mindmap-server.js",
+    "start:market-analysis": "node src/mcp-servers/market-analysis-server.js",
+    "start:financial-modeling": "node src/mcp-servers/financial-modeling-server.js",
+    "start:technical-doc": "node src/mcp-servers/technical-documentation-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -22,10 +27,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jamcam-me/claude-scp.git"
+    "url": "git+https://github.com/jamcam-me/claude-mcp.git"
   },
   "keywords": [
-    "SCP",
+    "MCP",
     "Claude",
     "API",
     "servers"
@@ -41,9 +46,51 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "D:\\Dev-New2005\\Claude-MCP",
-        "D:\\Dev-New2005\\Claude-MCP\\Claude-SCP\\data"
+        "D:\\github\\Claude-MCP",
+        "D:\\github\\Claude-MCP\\data"
       ]
+    },
+    "github": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/github-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "brave-search": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/brave-search-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "fetch": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/fetch-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "mindmap": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/mindmap-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "market-analysis": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/market-analysis-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "financial-modeling": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/financial-modeling-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "technical-documentation": {
+      "command": "node",
+      "args": ["D:/github/Claude-MCP/src/mcp-servers/technical-documentation-server.js"],
+      "disabled": false,
+      "alwaysAllow": []
     }
   }
 }
