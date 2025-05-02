@@ -8,10 +8,13 @@ import {
   McpError,
 } from '@modelcontextprotocol/sdk/types.js';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const API_KEY = process.env.BRAVE_SEARCH_API_KEY; // provided by MCP config
 if (!API_KEY) {
-  console.error('Warning: BRAVE_SEARCH_API_KEY environment variable is not set. API calls may fail.');
+  console.error('Error: BRAVE_SEARCH_API_KEY environment variable is not set.');
+  process.exit(1);
 }
 
 class BraveSearchMcpServer {
@@ -29,10 +32,10 @@ class BraveSearchMcpServer {
     );
 
     this.axiosInstance = axios.create({
-      baseURL: 'https://api.brave.com/search',
+      baseURL: 'https://api.search.brave.com/v1',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`
+        'X-API-Key': API_KEY
       }
     });
 
@@ -98,7 +101,7 @@ class BraveSearchMcpServer {
 
             const count = Math.min(request.params.arguments.count || 10, 20);
             
-            const response = await this.axiosInstance.get('', {
+            const response = await this.axiosInstance.get('/search', {
               params: {
                 q: request.params.arguments.query,
                 count
@@ -123,7 +126,7 @@ class BraveSearchMcpServer {
               );
             }
             
-            const response = await this.axiosInstance.get('/suggestions', {
+            const response = await this.axiosInstance.get('/suggest', {
               params: {
                 q: request.params.arguments.query
               }
@@ -147,18 +150,18 @@ class BraveSearchMcpServer {
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          return {
-            content: [
-              {
-                type: 'text',
-                text: `Brave Search API error: ${
-                  error.response?.data.message ?? error.message
-                }`,
-              },
-            ],
-            isError: true,
-          };
-        }
+                    const status = error.response?.status;
+                    const data = error.response?.data;
+                    return {
+                      content: [
+                        {
+                          type: 'text',
+                          text: `Brave Search API error (status ${status}): ${JSON.stringify(data, null, 2)}`,
+                        },
+                      ],
+                      isError: true,
+                    };
+                  }
         throw error;
       }
     });
