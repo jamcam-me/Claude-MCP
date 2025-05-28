@@ -13,6 +13,7 @@
     "start:market-analysis": "node src/mcp-servers/market-analysis-server.js",
     "start:financial-modeling": "node src/mcp-servers/financial-modeling-server.js",
     "start:technical-doc": "node src/mcp-servers/technical-documentation-server.js",
+    "start:tunnel": "node src/mcp-servers/ngrok-tunnel.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -20,6 +21,7 @@
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "node-fetch": "^3.3.2",
     "upgrade": "^1.1.0"
   },
   "devDependencies": {
@@ -52,43 +54,65 @@
     },
     "github": {
       "command": "node",
-      "args": ["D:/github/Claude-MCP/src/mcp-servers/github-server.js"],
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/github-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "brave-search": {
       "command": "node",
-      "args": ["D:/github/Claude-MCP/src/mcp-servers/brave-search-server.js"],
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/brave-search-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "fetch": {
       "command": "node",
-      "args": ["D:/github/Claude-MCP/src/mcp-servers/fetch-server.js"],
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/fetch-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "mindmap": {
       "command": "node",
-      "args": ["D:/github/Claude-MCP/src/mcp-servers/mindmap-server.js"],
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/mindmap-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "market-analysis": {
       "command": "node",
-      "args": ["D:/github/Claude-MCP/src/mcp-servers/market-analysis-server.js"],
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/market-analysis-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "financial-modeling": {
       "command": "node",
-      "args": ["D:/github/Claude-MCP/src/mcp-servers/financial-modeling-server.js"],
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/financial-modeling-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "technical-documentation": {
       "command": "node",
-      "args": ["D:/github/Claude-MCP/src/mcp-servers/technical-documentation-server.js"],
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/technical-documentation-server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "tunnel": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/ngrok-tunnel.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     }
