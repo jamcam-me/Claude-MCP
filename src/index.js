@@ -1,12 +1,13 @@
 // filepath: /Claude-MCP/src/index.js
-import { FilesystemServer } from './servers/filesystemServer.js';
-import { GithubServer } from './servers/githubServer.js';
-import { BraveSearchServer } from './servers/braveSearchServer.js';
-import { FetchServer } from './servers/fetchServer.js';
-import { MindmapServer } from './servers/mindmapServer.js';
-import { MarketAnalysisServer } from './servers/marketAnalysisServer.js';
-import { FinancialModelingServer } from './servers/financialModelingServer.js';
-import { TechnicalDocServer } from './servers/technicalDocServer.js';
+import { FilesystemServer } from './mcp-servers/filesystem-server.js';
+import { GithubServer } from './mcp-servers/github-server/index.js';
+import { BraveSearchServer } from './mcp-servers/brave-search-server.js';
+import { FetchServer } from './mcp-servers/fetch-server.js';
+import { MindmapServer } from './mcp-servers/mindmap-server.js';
+import { MarketAnalysisServer } from './mcp-servers/market-analysis-server.js';
+import { FinancialModelingServer } from './mcp-servers/financial-modeling-server.js';
+import { TechnicalDocServer } from './mcp-servers/technical-documentation-server.js';
+import { VercelApiMcp } from './mcp-servers/vercel-api-mcp.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,6 +21,7 @@ const mindmapServer = new MindmapServer();
 const marketAnalysisServer = new MarketAnalysisServer();
 const financialModelingServer = new FinancialModelingServer();
 const technicalDocServer = new TechnicalDocServer();
+const vercelApiMcpServer = new VercelApiMcp();
 
 const startServers = async () => {
     try {
@@ -38,6 +40,7 @@ const startServers = async () => {
         // Start existing servers that were added to the repository
         await financialModelingServer.start();
         await technicalDocServer.start();
+        await vercelApiMcpServer.start();
         
         console.log('All MCP servers started successfully');
     } catch (error) {
@@ -60,7 +63,8 @@ process.on('SIGINT', async () => {
             mindmapServer.stop(),
             marketAnalysisServer.stop(),
             financialModelingServer.stop(),
-            technicalDocServer.stop()
+            technicalDocServer.stop(),
+            vercelApiMcpServer.stop()
         ]);
         
         console.log('All MCP servers stopped successfully');

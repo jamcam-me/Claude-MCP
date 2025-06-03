@@ -1,0 +1,89 @@
+{
+  "mcpServers": {
+    "github-server": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\github-server\\index.js"
+      ],
+      "env": {
+        "GITHUB_API_TOKEN": "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"
+      }
+    },
+    "brave-search": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\brave-search-server.js"
+      ],
+      "env": {
+        "BRAVE_SEARCH_API_KEY": "BSAccI-U0jStEHEmC600GfAlV_d55Yt"
+      }
+    },
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\filesystem-server.js"
+      ],
+      "env": {
+        "FILESYSTEM_BASE_DIRS": "D:\\github\\Claude-MCP,D:\\github\\Claude-MCP\\data"
+      }
+    },
+    "financial-modeling": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\financial-modeling-server.js"
+      ]
+    },
+    "fetch": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\fetch-server.js"
+      ]
+    },
+    "hubspot": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@hubspot/mcp-server"
+      ],
+      "env": {
+        "PRIVATE_APP_ACCESS_TOKEN": "<pat-eu1-72a62912-0a17-4349-bcc1-9b17b46d3fe0>"
+      }
+    },
+    "mindmap": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\mindmap-server.js"
+      ]
+    },
+    "market-analysis": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\market-analysis-server.js"
+      ]
+    },
+    "technical-documentation": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\technical-documentation-server.js"
+      ]
+    },
+    "mermaid-chart-server": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\mermaid-chart-server.js"
+      ]
+    },
+    "whimsical-server": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\whimsical-server.js"
+      ]
+    },
+    "vercel-server": {
+      "command": "node",
+      "args": [
+        "D:\\github\\Claude-MCP\\src\\mcp-servers\\vercel-api-mcp.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "mcpServers": {
+    "financial-modeling": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/financial-modeling-server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": [
+        "scenario_analysis",
+        "revenue_projection"
+      ]
+    },
+    "brave-search-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/brave-search-server.js"
+      ],
+      "env": {
+        "BRAVE_SEARCH_API_KEY": "BSAFICL0_K8nwMpfkg6pp6FvZUzm2xV"
+      },
+      "disabled": false,
+      "alwaysAllow": [
+        "search",
+        "get_suggestions"
+      ]
+    },
+    "fetch-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/fetch-server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": [
+        "fetch_html"
+      ]
+    },
+    "filesystem-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/filesystem-server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": [
+        "read_file"
+      ]
+    },
+    "github-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/github-server/index.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "market-analysis-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/market-analysis-server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": [
+        "competitive_analysis",
+        "regional_market_analysis"
+      ]
+    },
+    "mindmap-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/mindmap-server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": [
+        "create_mindmap",
+        "update_mindmap"
+      ]
+    },
+    "technical-documentation-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/technical-documentation-server.js"
+      ],
+      "disabled": false,
+      "alwaysAllow": [
+        "generate_architecture_diagram",
+        "generate_sequence_diagram",
+        "generate_gantt_chart"
+      ]
+    },
+    "vercel-server": {
+      "command": "node",
+      "args": [
+        "D:/github/Claude-MCP/src/mcp-servers/vercel-api-mcp.js"
+      ],
+      "env": {
+        "VERCEL_API_TOKEN": "SocyM52FZc9vcnaJxnMjuc0C"
+      },
+      "disabled": false,
+      "alwaysAllow": [
+        "list_projects"
+      ]
+    }
+  }
+}

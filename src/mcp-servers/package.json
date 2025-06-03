@@ -1,0 +1,16 @@
+{
+  "name": "mcp-servers",
+  "version": "1.0.0",
+  "main": "brave-search-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "undici": "^7.10.0"
+  }
+}
