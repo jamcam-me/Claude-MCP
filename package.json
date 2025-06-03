@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "start:github": "node src/mcp-servers/github-server.js",
+    "start:github": "node src/mcp-servers/github-server/index.js",
     "start:brave-search": "node src/mcp-servers/brave-search-server.js",
     "start:filesystem": "node src/mcp-servers/filesystem-server.js",
     "start:fetch": "node src/mcp-servers/fetch-server.js",
@@ -14,6 +14,7 @@
     "start:financial-modeling": "node src/mcp-servers/financial-modeling-server.js",
     "start:technical-doc": "node src/mcp-servers/technical-documentation-server.js",
     "start:tunnel": "node src/mcp-servers/ngrok-tunnel.js",
+    "start:vercel-server": "node src/mcp-servers/vercel-api-mcp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -45,61 +46,81 @@
   "mcpServers": {
     "filesystem": {
       "command": "node",
-      "args": ["src/mcp-servers/filesystem-server.js"],
+      "args": [
+        "src/mcp-servers/filesystem-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
-    "github": {
+    "github-server": {
       "command": "node",
-      "args": ["src/mcp-servers/github-server/index.js"],
+      "args": [
+        "src/mcp-servers/github-server/index.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "brave-search": {
       "command": "node",
-      "args": ["src/mcp-servers/brave-search-server.js"],
+      "args": [
+        "src/mcp-servers/brave-search-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "fetch": {
       "command": "node",
-      "args": ["src/mcp-servers/fetch-server.js"],
+      "args": [
+        "src/mcp-servers/fetch-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "mindmap": {
       "command": "node",
-      "args": ["src/mcp-servers/mindmap-server.js"],
+      "args": [
+        "src/mcp-servers/mindmap-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "market-analysis": {
       "command": "node",
-      "args": ["src/mcp-servers/market-analysis-server.js"],
+      "args": [
+        "src/mcp-servers/market-analysis-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "financial-modeling": {
       "command": "node",
-      "args": ["src/mcp-servers/financial-modeling-server.js"],
+      "args": [
+        "src/mcp-servers/financial-modeling-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "technical-documentation": {
       "command": "node",
-      "args": ["src/mcp-servers/technical-documentation-server.js"],
+      "args": [
+        "src/mcp-servers/technical-documentation-server.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "tunnel": {
       "command": "node",
-      "args": ["src/mcp-servers/ngrok-tunnel.js"],
+      "args": [
+        "src/mcp-servers/ngrok-tunnel.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     },
     "vercel-server": {
       "command": "node",
-      "args": ["src/mcp-servers/vercel-api-mcp.js"],
+      "args": [
+        "src/mcp-servers/vercel-api-mcp.js"
+      ],
       "disabled": false,
       "alwaysAllow": []
     }
