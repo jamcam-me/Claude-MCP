@@ -1,4 +1,16 @@
 #!/usr/bin/env node
+import { createWriteStream } from 'fs';
+import { Console } from 'console';
+import dotenv from 'dotenv';
+dotenv.config();
+
+// Create a writable stream to a log file
+const output = createWriteStream('./vercel-mcp-output.log', { flags: 'a' });
+const errorOutput = createWriteStream('./vercel-mcp-error.log', { flags: 'a' });
+
+// Custom console that writes to the log files
+const logger = new Console({ stdout: output, stderr: errorOutput });
+
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import {
@@ -11,12 +23,12 @@ import { fetch } from 'undici';
 
 const VERCEL_API_TOKEN = process.env.VERCEL_API_TOKEN;
 
-class VercelAPIServer {
+export class VercelApiMcp {
   constructor() {
-    console.log(`[${new Date().toISOString()}] Loading Vercel API MCP Server - Latest Version`);
+    logger.error(`[${new Date().toISOString()}] Loading Vercel API MCP Server - Latest Version`);
     this.server = new Server(
       {
-        name: 'vercel-api',
+        name: 'vercel-server',
         version: '1.0.0',
       },
       {
@@ -30,7 +42,7 @@ class VercelAPIServer {
     this.setupToolHandlers();
     
     // Error handling
-    this.server.onerror = (error) => console.error('[MCP Error]', error);
+    this.server.onerror = (error) => logger.error('[MCP Error]', error);
     process.on('SIGINT', async () => {
       await this.server.close();
       process.exit(0);
@@ -38,10 +50,10 @@ class VercelAPIServer {
   }
 
   setupToolHandlers() {
-    console.log(`[${new Date().toISOString()}] Setting up tool handlers...`);
+    logger.error(`[${new Date().toISOString()}] Setting up tool handlers...`);
     
     this.server.setRequestHandler(ListToolsRequestSchema, async () => {
-      console.log(`[${new Date().toISOString()}] ListTools request received`);
+      logger.error(`[${new Date().toISOString()}] ListTools request received`);
       return {
         tools: [
           {
@@ -58,29 +70,29 @@ class VercelAPIServer {
     });
 
     this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
-      console.log(`[${new Date().toISOString()}] CallTool request received:`, JSON.stringify(request, null, 2));
+      logger.error(`[${new Date().toISOString()}] CallTool request received:`, JSON.stringify(request, null, 2));
       
       if (request.params.name === 'list_projects') {
-        console.log(`[${new Date().toISOString()}] Executing list_projects tool`);
+        logger.error(`[${new Date().toISOString()}] Executing list_projects tool`);
         
         if (!VERCEL_API_TOKEN) {
-          console.error(`[${new Date().toISOString()}] VERCEL_API_TOKEN not set`);
+          logger.error(`[${new Date().toISOString()}] VERCEL_API_TOKEN not set`);
           throw new Error('VERCEL_API_TOKEN not set in environment variables.');
         }
 
         try {
-          console.log(`[${new Date().toISOString()}] Making API call to Vercel...`);
+          logger.error(`[${new Date().toISOString()}] Making API call to Vercel...`);
           const response = await fetch('https://api.vercel.com/v9/projects', {
             headers: {
               Authorization: `Bearer ${VERCEL_API_TOKEN}`,
             },
           });
 
-          console.log(`[${new Date().toISOString()}] Vercel API response status: ${response.status}`);
+          logger.error(`[${new Date().toISOString()}] Vercel API response status: ${response.status}`);
 
           if (!response.ok) {
             const errorData = await response.json();
-            console.error(`[${new Date().toISOString()}] Vercel API error:`, errorData);
+            logger.error(`[${new Date().toISOString()}] Vercel API error:`, errorData);
             throw new Error(
               `Vercel API error: ${response.status} ${response.statusText} - ${
                 errorData.error?.message || 'Unknown error'
@@ -89,7 +101,7 @@ class VercelAPIServer {
           }
 
           const data = await response.json();
-          console.log(`[${new Date().toISOString()}] Vercel API call successful, returning data`);
+          logger.error(`[${new Date().toISOString()}] Vercel API call successful, returning data`);
           return {
             content: [
               {
@@ -99,17 +111,17 @@ class VercelAPIServer {
             ],
           };
         } catch (error) {
-          console.error(`[${new Date().toISOString()}] Error in list_projects:`, error);
+          logger.error(`[${new Date().toISOString()}] Error in list_projects:`, error);
           throw new Error(`Failed to fetch Vercel projects: ${error.message}`);
         }
       } else {
-        console.error(`[${new Date().toISOString()}] Unknown tool: ${request.params.name}`);
+        logger.error(`[${new Date().toISOString()}] Unknown tool: ${request.params.name}`);
         throw new Error(`Unknown tool: ${request.params.name}`);
       }
     });
 
     this.server.setRequestHandler(ListResourcesRequestSchema, async () => {
-      console.log(`[${new Date().toISOString()}] ListResources request received`);
+      logger.error(`[${new Date().toISOString()}] ListResources request received`);
       return {
         resources: [
           {
@@ -122,29 +134,29 @@ class VercelAPIServer {
     });
 
     this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
-      console.log(`[${new Date().toISOString()}] ReadResource request received:`, JSON.stringify(request, null, 2));
+      logger.error(`[${new Date().toISOString()}] ReadResource request received:`, JSON.stringify(request, null, 2));
       
       if (request.params.uri === 'vercel-api://projects') {
-        console.log(`[${new Date().toISOString()}] Accessing vercel-api://projects resource`);
+        logger.error(`[${new Date().toISOString()}] Accessing vercel-api://projects resource`);
         
         if (!VERCEL_API_TOKEN) {
-          console.error(`[${new Date().toISOString()}] VERCEL_API_TOKEN not set for resource access`);
+          logger.error(`[${new Date().toISOString()}] VERCEL_API_TOKEN not set for resource access`);
           throw new Error('VERCEL_API_TOKEN not set in environment variables.');
         }
 
         try {
-          console.log(`[${new Date().toISOString()}] Making API call to Vercel for resource...`);
+          logger.error(`[${new Date().toISOString()}] Making API call to Vercel for resource...`);
           const response = await fetch('https://api.vercel.com/v9/projects', {
             headers: {
               Authorization: `Bearer ${VERCEL_API_TOKEN}`,
             },
           });
 
-          console.log(`[${new Date().toISOString()}] Vercel API response status for resource: ${response.status}`);
+          logger.error(`[${new Date().toISOString()}] Vercel API response status for resource: ${response.status}`);
 
           if (!response.ok) {
             const errorData = await response.json();
-            console.error(`[${new Date().toISOString()}] Vercel API error for resource:`, errorData);
+            logger.error(`[${new Date().toISOString()}] Vercel API error for resource:`, errorData);
             throw new Error(
               `Vercel API error: ${response.status} ${response.statusText} - ${
                 errorData.error?.message || 'Unknown error'
@@ -153,7 +165,7 @@ class VercelAPIServer {
           }
 
           const data = await response.json();
-          console.log(`[${new Date().toISOString()}] Vercel API call successful for resource, returning data`);
+          logger.error(`[${new Date().toISOString()}] Vercel API call successful for resource, returning data`);
           return {
             contents: [
               {
@@ -163,29 +175,33 @@ class VercelAPIServer {
             ],
           };
         } catch (error) {
-          console.error(`[${new Date().toISOString()}] Error in resource access:`, error);
+          logger.error(`[${new Date().toISOString()}] Error in resource access:`, error);
           throw new Error(`Failed to fetch Vercel projects for resource: ${error.message}`);
         }
       } else {
-        console.error(`[${new Date().toISOString()}] Unknown resource URI: ${request.params.uri}`);
+        logger.error(`[${new Date().toISOString()}] Unknown resource URI: ${request.params.uri}`);
         throw new Error(`Unknown resource: ${request.params.uri}`);
       }
     });
     
-    console.log(`[${new Date().toISOString()}] All request handlers registered successfully`);
+    logger.error(`[${new Date().toISOString()}] All request handlers registered successfully`);
   }
 
   async run() {
     const transport = new StdioServerTransport();
     await this.server.connect(transport);
-    console.error('Vercel API MCP server running on stdio');
+    logger.error('Vercel API MCP server running on stdio');
+  }
+
+  start() {
+    return this.run();
+  }
+
+  stop() {
+    return this.server.close();
   }
 }
 
-// Only run standalone if this file is executed directly
-const isMainModule = import.meta.url === `file://${process.argv[1]}`;
-if (isMainModule) {
-  console.log('Running Vercel MCP server in standalone mode...');
-  const server = new VercelAPIServer();
-  server.run().catch(console.error);
-}
+// Standalone server start
+const server = new VercelApiMcp();
+server.run().catch(logger.error);
