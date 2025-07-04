@@ -49,23 +49,14 @@
         "generate_sequence_diagram"
       ]
     },
-    "brave-search-server": {
-      "command": "node",
-      "args": [
-        "src/mcp-servers/brave-search-server.js"
-      ]
-    },
     "url-access": {
       "command": "node",
       "args": [
         "src/mcp-servers/ngrok-tunnel.js"
+      ],
+      "alwaysAllow": [
+        "getUrls"
       ]
-    }
-  },
-  "resources": {
-    "website-urls": {
-      "type": "file",
-      "path": "tunnels.json"
     }
   }
 }
