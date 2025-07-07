@@ -58,5 +58,11 @@
         "getUrls"
       ]
     }
-  }
+  },
+    "firecrawl-mcp-server": {
+      "command": "node",
+      "args": [
+        "firecrawl-mcp-server/dist/index.js"
+      ]
+    }
 }
