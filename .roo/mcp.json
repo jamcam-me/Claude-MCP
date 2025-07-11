@@ -59,10 +59,10 @@
       ]
     }
   },
-    "firecrawl-mcp-server": {
-      "command": "node",
-      "args": [
-        "firecrawl-mcp-server/dist/index.js"
-      ]
-    }
-}
+   "firecrawl-mcp-server": {
+     "command": "node",
+     "args": [
+       "firecrawl-mcp-server/dist/index.js"
+     ]
+   }
+ }
